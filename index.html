@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
-  <body aurelia-app="main">
+  <body aurelia-app="startup">
     <div class="splash">
       <div class="message">Aurelia Navigation Skeleton</div>
       <i class="fa fa-spinner fa-spin"></i>
     </div>
 
+    <script>require('electron-connect').client.create()</script>
+    <script src="index.js"></script>
     <script src="jspm_packages/system.js"></script>
     <script src="config.js"></script>
     <script>
