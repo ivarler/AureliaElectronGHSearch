@@ -14,7 +14,7 @@ function reportChange(event) {
 gulp.task('watch', ['build'],function() {
   
    // Start browser process and enable remote debugging.
-  electron.start("--remote-debugging-port=9222");
+  electron.start("--remote-debugging-port=9223");
 
   // Restart browser process
   gulp.watch('index.js', electron.restart);

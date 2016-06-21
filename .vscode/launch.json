@@ -5,9 +5,9 @@
             "name": "Attach with sourcemaps",
             "type": "chrome",
             "request": "attach",
-            "port": 9222,
+            "port": 9223,
             "sourceMaps": true,
-            "webRoot": "${workspaceRoot}"
+            "webRoot": "${workspaceRoot}"            
         }
     ]
 }
