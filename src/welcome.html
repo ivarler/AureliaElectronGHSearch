@@ -1,21 +1,31 @@
 <template>
+  
   <require from="bootstrap/css/bootstrap.css"></require>
-  <section class="au-animate">
-    <h2>${heading}</h2>
-    <form role="form" submit.delegate="submit()">
-      <div class="form-group">
-        <label for="fn">First Name:</label>
-        <input type="text" value.bind="firstName" class="form-control" id="fn" placeholder="first name">
-      </div>
-      <div class="form-group">
-        <label for="ln">Last Name</label>
-        <input type="text" value.bind="lastName" class="form-control" id="ln" placeholder="last name">
-      </div>
-      <div class="form-group">
-        <label>Full Name</label>
-        <p class="help-block">${fullName | upper}</p>
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+  <require from="./intercept-binding-behavior"></require>
+  
+  <section>
+    <span class="github-icon mega-octicon octicon-mark-github"></span>
+    <input type="text" value.bind="searchText & intercept:onChanged & debounce:500" placeholder="${watermark}">
   </section>
+  <section>
+    <div class="repository-list-wrapper">
+        <ul class="repository-list"> 
+            <li class="repository-list-item" repeat.for="item of result.items" click.trigger="linkClicked(item)">
+                    <span class="repository-name">${item.name}</span>
+                    <span class="repository-meta">${item.stargazers_count}</span>
+                    <span class="repository-meta glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="repository-meta fork-name">${item.forks_count}</span>
+                    <span class="repository-meta octicon octicon-repo-forked"></span>
+            </li>
+        </ul>  
+    </div>
+    
+    <div class="repository-current align-right">
+        <img src.bind="firstRepo.owner.avatar_url" show.bind="firstRepo.owner.avatar_url" width="100" style="margin:10px 10px 10px 0px; display:inline-block;"/>
+        <span style="display:inline-block;">
+            <h1>${firstRepo.name}</h1>
+            <h2>${firstRepo.full_name}</h2>
+        </span>
+    </div>
+    </section>
 </template>

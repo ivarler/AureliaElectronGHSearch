@@ -1,34 +1,83 @@
-//import {computedFrom} from 'aurelia-framework';
+import {inject} from 'aurelia-framework';
+import {HttpClient, json} from 'aurelia-fetch-client';
+import 'fetch';
 
+@inject(HttpClient)
 export class Welcome {
-  heading = 'Welcome to the Aurelia Navigation App!';
-  firstName = 'John';
-  lastName = 'Doe';
-  previousValue = this.fullName;
-
-  //Getters can't be directly observed, so they must be dirty checked.
-  //However, if you tell Aurelia the dependencies, it no longer needs to dirty check the property.
-  //To optimize by declaring the properties that this getter is computed from, uncomment the line below
-  //as well as the corresponding import above.
-  //@computedFrom('firstName', 'lastName')
-  get fullName() {
-    return `${this.firstName} ${this.lastName}`;
+  
+  searchText : string;
+  watermark : string;
+  
+  onChanged;
+  http;
+  result : SearchResult;
+  firstRepo : Repository;
+  users = [];
+  
+  constructor(http : HttpClient){
+    this.watermark = "GitHub-search";
+    this.searchText = "";
+   
+    this.configureHttp(http);
+    
+    this.onChanged = (method, update, value : string) => {
+        if(value.length != 0){
+            this.getRepos(value);
+        }
+        else{
+            this.result = null;
+            this.firstRepo = null;
+        }
+      update(value);
+    };
   }
-
-  submit() {
-    this.previousValue = this.fullName;
-    alert(`Welcome, ${this.fullName}!`);
+  
+  linkClicked(repository : Repository){
+      this.firstRepo = repository;
   }
+  
+  getRepos(value : string){
+      this.http.fetch(value)
+      .then(response => response.json())
+      .then(result => {
+            this.result = result;
+            this.firstRepo = result.items[0];
+          });
+      
+  }
+  
+  private configureHttp(http){
+      http.configure(config => {
+      config
+        .useStandardConfiguration()
+        .withBaseUrl('https://api.github.com/search/repositories?q=');
+    });
+    this.http = http;
+  }
+} 
 
-  canDeactivate() {
-    if (this.fullName !== this.previousValue) {
-      return confirm('Are you sure you want to leave?');
+class SearchResult{
+    constructor(total_count, incomplete_results, items) {
+        this.total_count = total_count;
+        this.incomplete_results = incomplete_results;
+        this.items = items;
     }
-  }
+    total_count : number;
+    incomplete_results : boolean;
+    items : Repository[];
 }
 
-export class UpperValueConverter {
-  toView(value) {
-    return value && value.toUpperCase();
-  }
+class Repository{
+    name : string;
+    full_name : string;
+    stargazers_count : number;
+    forks_count : number;
+    owner : Owner;
+}
+
+class Owner{
+    login : string;
+    avatar_url : string;
+    html_url : string;
+    type : string;
 }

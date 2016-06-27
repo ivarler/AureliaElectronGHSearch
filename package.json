@@ -80,5 +80,8 @@
       "text": "github:systemjs/plugin-text@^0.0.3"
     },
     "devDependencies": {}
+  },
+  "dependencies": {
+    "octicons": "^4.2.0"
   }
 }

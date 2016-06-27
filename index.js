@@ -9,6 +9,8 @@ const {app} = electron;
 const {BrowserWindow} = electron;
 let mainWindow;
 
+
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
@@ -16,10 +18,14 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
+  const size = electron.screen.getPrimaryDisplay().workAreaSize
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame : false
+    width: 650,
+    height: 500,
+    frame : false,
+    y : (40),
+    x : (size.width - 670)
+    
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
