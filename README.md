@@ -1,8 +1,7 @@
-## Use Aurelia to build Electron apps.
+# AureliaElectronGHSearch
+An Electron app using Aurelia and Typescript to search for GitHub repositories.
 
-This repo is the result of setting up a development environment for Aurelia and Electron. It contains the bits needed both for debugging and reloading the app during development. 
-
-It is based upon the typescript skeleton app provided by the Aurelia team. 
+Based on [seesharper/AureliaElectronHappiness](https://github.com/seesharper/AureliaElectronHappiness)
 
 ## Setting up 
 
@@ -92,4 +91,5 @@ Being able to debug is now a simple matter of installing the Chrome Debugger Ext
 
 
 
-> Written with [StackEdit](https://stackedit.io/).
+
+
