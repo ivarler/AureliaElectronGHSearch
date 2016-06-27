@@ -22,9 +22,11 @@
     
     <div class="repository-current align-right">
         <img src.bind="firstRepo.owner.avatar_url" show.bind="firstRepo.owner.avatar_url" width="100" style="margin:10px 10px 10px 0px; display:inline-block;"/>
-        <span style="display:inline-block;">
+        
+        <span style="display:block;">
             <h1>${firstRepo.name}</h1>
-            <h2>${firstRepo.full_name}</h2>
+            <h2 class="repository-fullname">${firstRepo.full_name}</h2>
+            <p class="repository-description">${firstRepo.description}<p>
         </span>
     </div>
     </section>

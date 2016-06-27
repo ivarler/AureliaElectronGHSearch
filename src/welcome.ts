@@ -73,6 +73,7 @@ class Repository{
     stargazers_count : number;
     forks_count : number;
     owner : Owner;
+    description : string;
 }
 
 class Owner{
