@@ -17,7 +17,6 @@ export class Welcome {
   constructor(http : HttpClient){
     this.watermark = "GitHub-search";
     this.searchText = "";
-   
     this.configureHttp(http);
     
     this.onChanged = (method, update, value : string) => {

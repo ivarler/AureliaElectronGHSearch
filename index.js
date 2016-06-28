@@ -23,8 +23,7 @@ app.on('ready', () => {
     width: 650,
     height: 500,
     frame : false,
-    y : (40),
-    x : (size.width - 670)
+    
     
   });
 

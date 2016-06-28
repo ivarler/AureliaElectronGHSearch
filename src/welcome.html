@@ -3,11 +3,11 @@
   <require from="bootstrap/css/bootstrap.css"></require>
   <require from="./intercept-binding-behavior"></require>
   
-  <section>
+  <section class="repository-search">
     <span class="github-icon mega-octicon octicon-mark-github"></span>
     <input type="text" value.bind="searchText & intercept:onChanged & debounce:500" placeholder="${watermark}">
   </section>
-  <section>
+  <section class="repository-view">
     <div class="repository-list-wrapper">
         <ul class="repository-list"> 
             <li class="repository-list-item" repeat.for="item of result.items" click.trigger="linkClicked(item)">
