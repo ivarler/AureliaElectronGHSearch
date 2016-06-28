@@ -2,6 +2,7 @@ import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
 import 'fetch';
 
+
 @inject(HttpClient)
 export class Welcome {
   
@@ -13,12 +14,13 @@ export class Welcome {
   result : SearchResult;
   firstRepo : Repository;
   users = [];
+  electron;
   
   constructor(http : HttpClient){
     this.watermark = "GitHub-search";
     this.searchText = "";
     this.configureHttp(http);
-    
+    this.electron = require('electron');
     this.onChanged = (method, update, value : string) => {
         if(value.length != 0){
             this.getRepos(value);
@@ -31,8 +33,16 @@ export class Welcome {
     };
   }
   
-  linkClicked(repository : Repository){
+  linkClicked(repository : Repository){     
       this.firstRepo = repository;
+  }
+  
+  openRepoUrl(){
+      this.electron.shell.openExternal(this.firstRepo.html_url);
+  }
+  
+  openUserUrl(){
+      this.electron.shell.openExternal(this.firstRepo.owner.html_url);
   }
   
   getRepos(value : string){
@@ -73,6 +83,7 @@ class Repository{
     forks_count : number;
     owner : Owner;
     description : string;
+    html_url : string;
 }
 
 class Owner{

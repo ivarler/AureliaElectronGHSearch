@@ -1,18 +1,19 @@
 {
-  "version": "1.7.3",
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": "src/",
+    "rootDir": "src",
+    "outDir": "dist",
     "sourceMap": true,
     "target": "es5",
-    "module": "amd",
+    "module": "system",
     "declaration": false,
     "noImplicitAny": false,
-    "noResolve": true,
     "removeComments": true,
-    "noLib": false,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "moduleResolution": "node",    
+    
+    "lib": ["es2015", "dom"]
   },
   "filesGlob": [
     "./src/**/*.ts",
@@ -22,7 +23,8 @@
     "./jspm_packages/**/*.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "jspm_packages"
   ],
   "atom": {
     "rewriteTsconfig": false

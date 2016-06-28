@@ -7,6 +7,7 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 300;
   background: #DFDFDF;
+  overflow: hidden;
 }
 
 h1{
@@ -45,70 +46,106 @@ div.au-stagger {
   animation-delay: 50ms;
 }
 
-input[type=text]{
-    display: inline-block;
-    width: 85vw;
-    height: 50px;
-    border: 0px;
-    margin: 10px 0px 10px 5px;
-    outline: none;
-    font-size: 1.85em;
-}
-
 input[type=text]::-webkit-input-placeholder {
   color: #666;
-}
-
-.github-icon{
-    width: 5vw;
 }
 
 .fork-name{
     padding-left: 5px; 
 }
 
+.repository-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;  
+}
+
 .repository-search{
   border-bottom: 1px solid #CCC;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  
+  flex-basis: 30%;
+  flex-grow: 2;
+}
+
+.github-icon{
+    margin: auto 0;
+    flex-basis: auto;
+    flex-grow: 1;
+}
+
+input[type=text]{    
+    height: 54px;
+    border: 0px;
+    margin: auto 10px;
+    padding-top: 2px; 
+    outline: none;
+    font-size: 1.85em;
+    
+    flex-basis: 100%;
+    flex-grow: 2;
 }
 
 .repository-view{
-  background: rgba(0, 0, 0, 0.03)
-}
-
-.repository-link{
-    text-decoration: none;
-    color: #222;
-    font-size: 1em;
-    text-overflow: ellipsis; 
+  background: rgba(0, 0, 0, 0.03);
+  margin:0px !important;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  
+  flex-basis: 70%;
+  flex-grow: 2;
 }
 
 .repository-current{
+    background: white;
+    border-left: 1px solid #DDD;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    
+    flex-basis: 65%;
+    flex-grow: 2;
+}
+
+.repository-current-content{
     padding: 0px 15px;
-    display: inline-block;
-    height:80vh;
-    width:65%;
+    overflow: hidden;
+    flex-basis: 70%;
+    flex-grow: 2;
 }
 
 .repository-list-wrapper{
-    display: inline-block;
-    height:80vh;
-    width:35%;
     border:0px;
     overflow:auto;
+    flex-basis: 30%;
+    flex-grow: 1;
 }
 
 .repository-list{
     list-style-type:none;
+    margin: 0px;
+}
+
+.repository-current, .repository-list-wrapper{
+    height: 89vh;
 }
 
 .repository-list-item{
     border-bottom: 1px solid #dfdfdf;
-    padding:6px 10px 6px 10px;
-    margin: 0;
+    padding:4px 15px;
+    margin: 0px;
+    font-size: 0.9em;
+    font-weight: 400;
+    color:#555;
 }
 
 .repository-list-item:hover {
-    background: #555;
+    background: #449add;
     color: #FFF;
 }
 
@@ -134,6 +171,18 @@ input[type=text]::-webkit-input-placeholder {
 
 .repository-description{
   margin-top: 5px;   
+}
+
+.repository-footer{
+    position: fixed;
+    bottom:0;
+    background: #FBFBFB;
+    padding: 10px;
+    width: 100%;
+    border-top: 1px solid #DDD;
+    
+    flex-basis: auto;
+    flex-grow: 1;
 }
 
 .align-left{

@@ -2,12 +2,12 @@
   
   <require from="bootstrap/css/bootstrap.css"></require>
   <require from="./intercept-binding-behavior"></require>
-  
-  <section class="repository-search">
+  <div class="repository-container">
+  <div class="repository-search">
     <span class="github-icon mega-octicon octicon-mark-github"></span>
     <input type="text" value.bind="searchText & intercept:onChanged & debounce:500" placeholder="${watermark}">
-  </section>
-  <section class="repository-view">
+  </div>
+  <div class="repository-view">
     <div class="repository-list-wrapper">
         <ul class="repository-list"> 
             <li class="repository-list-item" repeat.for="item of result.items" click.trigger="linkClicked(item)">
@@ -20,14 +20,22 @@
         </ul>  
     </div>
     
-    <div class="repository-current align-right">
-        <img src.bind="firstRepo.owner.avatar_url" show.bind="firstRepo.owner.avatar_url" width="100" style="margin:10px 10px 10px 0px; display:inline-block;"/>
+    <div class="repository-current">
+        <div class="repository-current-content">
+        <img src.bind="firstRepo.owner.avatar_url" show.bind="firstRepo.owner.avatar_url" width="100" height="100" style="margin:10px 10px 10px 0px; display:inline-block;"/>
         
         <span style="display:block;">
             <h1>${firstRepo.name}</h1>
             <h2 class="repository-fullname">${firstRepo.full_name}</h2>
             <p class="repository-description">${firstRepo.description}<p>
+            
         </span>
+        </div>
+        <footer class="repository-footer" show.bind="firstRepo">
+            <button click.trigger="openRepoUrl()">Repo</button>
+            <button click.trigger="openUserUrl()">User</button>
+        </footer>
     </div>
-    </section>
+  </div>
+  </div>
 </template>
