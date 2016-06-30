@@ -1,7 +1,8 @@
 # AureliaElectronGHSearch
 An Electron app using Aurelia and Typescript to search for GitHub repositories.
 
-!(./screenshot.tiff)
+!(screenshot.tiff)[]
+
 
 
 Based on [seesharper/AureliaElectronHappiness](https://github.com/seesharper/AureliaElectronHappiness)
