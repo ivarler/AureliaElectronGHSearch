@@ -31,6 +31,7 @@ System.config({
     "fetch": "github:github/fetch@0.11.1",
     "font-awesome": "npm:font-awesome@4.6.3",
     "jquery": "npm:jquery@2.2.4",
+    "moment": "npm:moment@2.13.0",
     "text": "github:systemjs/plugin-text@0.0.3",
     "github:twbs/bootstrap@3.3.6": {
       "jquery": "npm:jquery@2.2.4"

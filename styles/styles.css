@@ -12,14 +12,15 @@ body {
 
 h1{
     font-weight: 300 !important;
-    font-size: 2em !important;
+    font-size: 1.4em !important;
     padding: 0 !important;
     margin: 0 !important;
+    text-overflow: ellipsis;
 }
 
 h2{
     font-weight: 400 !important;
-    font-size: 1em !important;
+    font-size: 0.9em !important;
     padding: 0 !important;
     margin: 0 !important;
     color: #999;
@@ -183,6 +184,26 @@ input[type=text]{
     
     flex-basis: auto;
     flex-grow: 1;
+}
+
+.icon-button{
+  margin: 0px 5px;
+  padding:3px;
+  color: #587d9c;
+}
+
+.icon-button:hover{
+  color: #93A0CF;
+}
+
+.icon-button:active{
+  color: #3c566b;
+}
+
+.stargazer{
+  height: 25px;
+  width: 25px;
+  margin: 4px;
 }
 
 .align-left{

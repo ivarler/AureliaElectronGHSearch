@@ -1,94 +1,83 @@
-import {inject} from 'aurelia-framework';
+import {inject, observable} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
+import {SearchResult} from 'SearchResult';
+import {Repository} from 'Repository';
+import {User} from 'User';
 import 'fetch';
-
 
 @inject(HttpClient)
 export class Welcome {
   
-  searchText : string;
-  watermark : string;
+  @observable
+  public SearchText : string;
   
-  onChanged;
+  public Watermark : string;
+  public result : SearchResult;
+  public firstRepo : Repository;
+  public StarGazers : User[];
+
+  private repoSearchUrl = 'https://api.github.com/search/repositories?sort=stars&q=';
+
+  mainWindow;
   http;
-  result : SearchResult;
-  firstRepo : Repository;
-  users = [];
   electron;
   
   constructor(http : HttpClient){
-    this.watermark = "GitHub-search";
-    this.searchText = "";
+    this.Watermark = "GitHub-search";
+    this.SearchText = "";
     this.configureHttp(http);
     this.electron = require('electron');
-    this.onChanged = (method, update, value : string) => {
-        if(value.length != 0){
-            this.getRepos(value);
-        }
-        else{
-            this.result = null;
-            this.firstRepo = null;
-        }
-      update(value);
-    };
   }
   
-  linkClicked(repository : Repository){     
+  public LinkClicked(repository : Repository) : void {     
       this.firstRepo = repository;
+      this.GetStarGazers(repository);
   }
   
-  openRepoUrl(){
+  public UserClicked(user : User){
+      this.electron.shell.openExternal(user.html_url);
+  }
+
+  public OpenRepoUrl() : void {
       this.electron.shell.openExternal(this.firstRepo.html_url);
   }
   
-  openUserUrl(){
+  public OpenUserUrl() : void {
       this.electron.shell.openExternal(this.firstRepo.owner.html_url);
   }
   
-  getRepos(value : string){
-      this.http.fetch(value)
+  private SearchTextChanged(newValue : string, oldValue : string) : void {
+      if(newValue == ""){
+          this.firstRepo = null;
+          return;
+      }
+      this.GetRepos(newValue);
+  }
+
+  private GetRepos(value : string){
+      
+      this.http.fetch(this.repoSearchUrl+value)
       .then(response => response.json())
       .then(result => {
             this.result = result;
             this.firstRepo = result.items[0];
+            this.GetStarGazers(this.firstRepo);
           });
-      
+  }
+
+  private GetStarGazers(value : Repository){
+
+      this.http.fetch(value.stargazers_url)
+      .then(response => response.json())
+      .then(starGazers => this.StarGazers = starGazers);
   }
   
   private configureHttp(http){
       http.configure(config => {
       config
         .useStandardConfiguration()
-        .withBaseUrl('https://api.github.com/search/repositories?q=');
+        ;
     });
     this.http = http;
   }
-} 
-
-class SearchResult{
-    constructor(total_count, incomplete_results, items) {
-        this.total_count = total_count;
-        this.incomplete_results = incomplete_results;
-        this.items = items;
-    }
-    total_count : number;
-    incomplete_results : boolean;
-    items : Repository[];
-}
-
-class Repository{
-    name : string;
-    full_name : string;
-    stargazers_count : number;
-    forks_count : number;
-    owner : Owner;
-    description : string;
-    html_url : string;
-}
-
-class Owner{
-    login : string;
-    avatar_url : string;
-    html_url : string;
-    type : string;
 }

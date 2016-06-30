@@ -2,15 +2,16 @@
   
   <require from="bootstrap/css/bootstrap.css"></require>
   <require from="./intercept-binding-behavior"></require>
+  <require from="./converters"></require>
   <div class="repository-container">
   <div class="repository-search">
     <span class="github-icon mega-octicon octicon-mark-github"></span>
-    <input type="text" value.bind="searchText & intercept:onChanged & debounce:500" placeholder="${watermark}">
+    <input type="text" value.bind="SearchText & debounce:500" placeholder="${Watermark}">
   </div>
   <div class="repository-view">
     <div class="repository-list-wrapper">
         <ul class="repository-list"> 
-            <li class="repository-list-item" repeat.for="item of result.items" click.trigger="linkClicked(item)">
+            <li class="repository-list-item" repeat.for="item of result.items" click.trigger="LinkClicked(item)">
                     <span class="repository-name">${item.name}</span>
                     <span class="repository-meta">${item.stargazers_count}</span>
                     <span class="repository-meta glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -22,18 +23,33 @@
     
     <div class="repository-current">
         <div class="repository-current-content">
-        <img src.bind="firstRepo.owner.avatar_url" show.bind="firstRepo.owner.avatar_url" width="100" height="100" style="margin:10px 10px 10px 0px; display:inline-block;"/>
         
+        <img src.bind="firstRepo.owner.avatar_url" show.bind="firstRepo.owner.avatar_url" width="100" height="100" style="margin:10px 10px 10px 0px; display:inline-block;"/>
+            
         <span style="display:block;">
+            
             <h1>${firstRepo.name}</h1>
             <h2 class="repository-fullname">${firstRepo.full_name}</h2>
-            <p class="repository-description">${firstRepo.description}<p>
             
+            <div show.bind="firstRepo">
+                <span class="repository-meta">${firstRepo.stargazers_count}</span>
+                <span class="repository-meta glyphicon glyphicon-star" aria-hidden="true"></span>
+                <span class="repository-meta fork-name">${firstRepo.forks_count}</span>
+                <span class="repository-meta octicon octicon-repo-forked"></span>
+                <span style="color:#999; margin-left:10px; font-size:0.7em;">Created ${firstRepo.created_at | dateFormat}</span>    
+                <span style="color:#999; margin-left:10px; font-size:0.7em;">Updated ${firstRepo.updated_at | dateFormat}</span>
+            </div>
+            
+            <div class="repository-description">
+                <p>${firstRepo.description}<p>
+                <img class="stargazer" repeat.for="user of StarGazers" src.bind="user.avatar_url" title.bind="user.login" click.trigger="UserClicked(user)"></img>
+            </div>
+
         </span>
         </div>
         <footer class="repository-footer" show.bind="firstRepo">
-            <button click.trigger="openRepoUrl()">Repo</button>
-            <button click.trigger="openUserUrl()">User</button>
+            <span title="Repository" class="icon-button octicon octicon-repo" click.trigger="OpenRepoUrl()" ></span>
+            <span title="User" class="icon-button octicon octicon-person" click.trigger="OpenUserUrl()" ></span>
         </footer>
     </div>
   </div>
